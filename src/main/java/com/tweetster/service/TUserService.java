@@ -90,15 +90,29 @@ public class TUserService {
 				.map(mapper::toDto)
 				.collect(Collectors.toList());
 	}
+
+	public List<TUserDto> getFollowedByByName(String uname) {
+		TUserDto ud = getByName(uname);
+		TUser usr = repo.findOne(ud.getId());
+		return usr.getFollowedBy().stream()
+				.map(mapper::toDto)
+				.collect(Collectors.toList());
+	}
 	
 	public void follow(String uname, String tname) {
 		TUserDto u = getByName(uname);
 		TUserDto t = getByName(tname);
 		TUser usr = repo.findOne(u.getId());
 		TUser tgt = repo.findOne(t.getId());
+		// add target to user's follows list
 		List<TUser> follows = usr.getFollows();
 		follows.add(tgt);
 		usr.setFollows(follows);
 		repo.save(usr);
+		// add user to target's followedBy list
+		List<TUser> followedBy = tgt.getFollowedBy();
+		followedBy.add(usr);
+		tgt.setFollowedBy(followedBy);
+		repo.save(tgt);
 	}
 }

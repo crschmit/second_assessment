@@ -67,6 +67,12 @@ public class TUserController {
 	public List<TUserDto> getFollowsByName(@PathVariable String name) {
 		return tuserService.getFollowsByName(name);
 	}
+
+	@GetMapping("/name/{name}/followedBy")
+	@ApiOperation(value = "", nickname = "getFollowedByByName")
+	public List<TUserDto> getFollowedByByName(@PathVariable String name) {
+		return tuserService.getFollowedByByName(name);
+	}	
 	
 	@PostMapping
 	@ApiOperation(value = "", nickname = "postNewTUser")

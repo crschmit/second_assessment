@@ -26,6 +26,9 @@ public class TUser implements BaseEntity<Integer>{
 	@ManyToMany
 	private List<TUser> follows = new ArrayList<TUser>();
 	
+	@ManyToMany
+	private List<TUser> followedBy = new ArrayList<TUser>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -56,6 +59,14 @@ public class TUser implements BaseEntity<Integer>{
 
 	public void setFollows(List<TUser> follows) {
 		this.follows = follows;
+	}
+
+	public List<TUser> getFollowedBy() {
+		return followedBy;
+	}
+
+	public void setFollowedBy(List<TUser> followedBy) {
+		this.followedBy = followedBy;
 	}
 
 	@Override
