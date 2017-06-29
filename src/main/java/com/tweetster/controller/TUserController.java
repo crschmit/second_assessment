@@ -62,6 +62,12 @@ public class TUserController {
 		return tuserService.getTweets(usr.getId());
 	}
 	
+	@GetMapping("/name/{name}/follows")
+	@ApiOperation(value = "", nickname = "getFollowsByName")
+	public List<TUserDto> getFollowsByName(@PathVariable String name) {
+		return tuserService.getFollowsByName(name);
+	}
+	
 	@PostMapping
 	@ApiOperation(value = "", nickname = "postNewTUser")
 	public Integer post(@RequestBody @Validated TUserDto tuserDto, HttpServletResponse httpResponse) {
@@ -74,6 +80,12 @@ public class TUserController {
 	@ApiOperation(value = "", nickname = "putTUserWithId")
 	public void put(@PathVariable Integer id, @RequestBody @Validated TUserDto tuserDto, HttpServletResponse httpResponse) {
 		tuserService.put(id, tuserDto);
+	}
+	
+	@PutMapping("/{uname}/follow/{tname}")
+	@ApiOperation(value = "", nickname = "putFollowByName")
+	public void follow(@PathVariable String uname, @PathVariable String tname, HttpServletResponse httpResponse) {
+		tuserService.follow(uname, tname);
 	}
 	
 	@DeleteMapping("{id}")

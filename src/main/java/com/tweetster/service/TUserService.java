@@ -82,4 +82,23 @@ public class TUserService {
 		
 		return matches.get(0);
 	}
+	
+	public List<TUserDto> getFollowsByName(String uname) {
+		TUserDto ud = getByName(uname);
+		TUser usr = repo.findOne(ud.getId());
+		return usr.getFollows().stream()
+				.map(mapper::toDto)
+				.collect(Collectors.toList());
+	}
+	
+	public void follow(String uname, String tname) {
+		TUserDto u = getByName(uname);
+		TUserDto t = getByName(tname);
+		TUser usr = repo.findOne(u.getId());
+		TUser tgt = repo.findOne(t.getId());
+		List<TUser> follows = usr.getFollows();
+		follows.add(tgt);
+		usr.setFollows(follows);
+		repo.save(usr);
+	}
 }

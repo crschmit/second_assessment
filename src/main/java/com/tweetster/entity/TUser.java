@@ -1,10 +1,12 @@
 package com.tweetster.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.tweetster.dto.datatype.BaseEntity;
@@ -19,8 +21,11 @@ public class TUser implements BaseEntity<Integer>{
 	private String username;
 	
 	@OneToMany(mappedBy = "author")
-	private List<Tweet> tweets;
+	private List<Tweet> tweets = new ArrayList<Tweet>();
 
+	@ManyToMany
+	private List<TUser> follows = new ArrayList<TUser>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -43,6 +48,14 @@ public class TUser implements BaseEntity<Integer>{
 
 	public void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
+	}
+
+	public List<TUser> getFollows() {
+		return follows;
+	}
+
+	public void setFollows(List<TUser> follows) {
+		this.follows = follows;
 	}
 
 	@Override
