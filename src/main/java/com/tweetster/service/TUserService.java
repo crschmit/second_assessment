@@ -120,4 +120,10 @@ public class TUserService {
 		TUserDto usr = getByName(uname);
 		putTweet(usr.getId(), twt);
 	}
+	
+	public List<TUserDto> matchName(String name) {
+		return repo.findByUsername(name).stream()
+				.map(mapper::toDto)
+				.collect(Collectors.toList());
+	}
 }

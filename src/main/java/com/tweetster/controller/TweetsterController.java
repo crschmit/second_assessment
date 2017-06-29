@@ -59,6 +59,12 @@ public class TweetsterController {
 		return tuserService.getByName(name);
 	}
 	
+	@GetMapping("match/{name}")
+	@ApiOperation(value = "", nickname = "matchByName")
+	public List<TUserDto> matchByName(@PathVariable String name) {
+		return tuserService.matchName(name);
+	}
+	
 	// PATCH users/@{username}
 //	@PatchMapping("/users/@{name}")
 //	@ApiOperation(value = "", nickname = "updateUserByName")
