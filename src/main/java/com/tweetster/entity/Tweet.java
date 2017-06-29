@@ -23,6 +23,12 @@ public class Tweet implements BaseEntity<Integer> {
 	@ManyToOne
 	private TUser author;
 	
+	@ManyToOne
+	private Tweet repostOf;
+	
+	@ManyToOne
+	private Tweet replyTo;
+	
 	public Integer getId() {
 		return Id;
 	}
@@ -52,6 +58,18 @@ public class Tweet implements BaseEntity<Integer> {
 	}
 	public void setAuthor(TUser author) {
 		this.author = author;
+	}
+	public Tweet getRepostOf() {
+		return repostOf;
+	}
+	public void setRepostOf(Tweet repostOf) {
+		this.repostOf = repostOf;
+	}
+	public Tweet getReplyTo() {
+		return replyTo;
+	}
+	public void setReplyTo(Tweet replyTo) {
+		this.replyTo = replyTo;
 	}
 	@Override
 	public int hashCode() {

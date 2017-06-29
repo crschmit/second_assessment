@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.tweetster.dto.TUserDto;
 import com.tweetster.dto.TweetDto;
 import com.tweetster.entity.Tweet;
 import com.tweetster.exception.ReferencedEntityNotFoundException;
@@ -51,6 +52,7 @@ public class TweetService {
 	
 	public Integer post(TweetDto tweetDto) {
 		tweetDto.setId(null);
+		tweetDto.setDeleted(false);
 		tweetDto.setPosted(new Timestamp((new Date()).getTime()));
 		return repo.save(mapper.toEntity(tweetDto)).getId();
 	}
@@ -73,4 +75,29 @@ public class TweetService {
 		repo.delete(id);
 	}
 	
+	public Integer tweet(TUserDto usr, String content, TweetDto twt) {
+		twt.setAuthor(usr);
+		twt.setContent(content);
+		twt.setRepostOf(null);
+		twt.setReplyTo(null);
+		return post(twt);
+	}
+	
+	public Integer repost(TUserDto usr, TweetDto twt) {
+		Tweet tgt = repo.findOne(twt.getId());
+		twt.setAuthor(usr);
+		twt.setContent(null);
+		twt.setRepostOf(mapper.toDto(tgt));
+		twt.setReplyTo(null);
+		return post(twt);
+	}
+	
+	public Integer reply(TUserDto usr, String content, TweetDto twt) {
+		Tweet tgt = repo.findOne(twt.getId());
+		twt.setAuthor(usr);
+		twt.setContent(content);
+		twt.setRepostOf(null);
+		twt.setReplyTo(mapper.toDto(tgt));
+		return post(twt);
+	}
 }

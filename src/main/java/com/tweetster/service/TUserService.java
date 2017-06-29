@@ -115,4 +115,9 @@ public class TUserService {
 		tgt.setFollowedBy(followedBy);
 		repo.save(tgt);
 	}
+	
+	public void tweet(String uname, TweetDto twt) {
+		TUserDto usr = getByName(uname);
+		putTweet(usr.getId(), twt);
+	}
 }
