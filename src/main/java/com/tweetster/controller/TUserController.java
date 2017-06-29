@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tweetster.dto.TUserDto;
+import com.tweetster.dto.TweetDto;
 import com.tweetster.service.TUserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +47,19 @@ public class TUserController {
 	@ApiOperation(value = "", nickname = "getTUserById")
 	public TUserDto get(@PathVariable Integer id) {
 		return tuserService.get(id);
+	}
+	
+	@GetMapping("/name/{name}")
+	@ApiOperation(value = "", nickname = "getUserByName")
+	public TUserDto getByName(@PathVariable String name) {
+		return tuserService.getByName(name);
+	}
+	
+	@GetMapping("/name/{name}/tweets")
+	@ApiOperation(value = "", nickname = "getUserByName")
+	public List<TweetDto> getTweetsByName(@PathVariable String name) {
+		TUserDto usr = tuserService.getByName(name);
+		return tuserService.getTweets(usr.getId());
 	}
 	
 	@PostMapping

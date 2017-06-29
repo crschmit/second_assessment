@@ -1,10 +1,14 @@
 package com.tweetster.dto;
 
+import java.util.List;
+
 public class TUserDto {
 
 	private Integer id;
 	
 	private String username;
+	
+	private List<TweetDto> tweets;
 
 	public Integer getId() {
 		return id;
@@ -20,6 +24,14 @@ public class TUserDto {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public List<TweetDto> getTweets() {
+		return tweets;
+	}
+
+	public void setTweets(List<TweetDto> tweets) {
+		this.tweets = tweets;
 	}
 
 	@Override

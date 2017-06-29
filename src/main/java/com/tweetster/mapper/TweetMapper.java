@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import com.tweetster.dto.TweetDto;
 import com.tweetster.entity.Tweet;
 
-@Mapper(componentModel = "spring", uses = { ReferenceMapper.class })
+@Mapper(componentModel = "spring", uses = { ReferenceMapper.class, TUserMapper.class })
 public interface TweetMapper {
 	
 	TweetDto toDto(Tweet entity);

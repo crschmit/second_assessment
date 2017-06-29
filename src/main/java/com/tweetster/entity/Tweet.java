@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 
 import com.tweetster.dto.datatype.BaseEntity;
@@ -18,6 +19,9 @@ public class Tweet implements BaseEntity<Integer> {
 	private Timestamp posted;
 	private String content;
 	private boolean deleted;
+	
+	@ManyToOne
+	private TUser author;
 	
 	public Integer getId() {
 		return Id;
@@ -42,6 +46,12 @@ public class Tweet implements BaseEntity<Integer> {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+	public TUser getAuthor() {
+		return author;
+	}
+	public void setAuthor(TUser author) {
+		this.author = author;
 	}
 	@Override
 	public int hashCode() {

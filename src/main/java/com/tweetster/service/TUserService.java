@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.tweetster.dto.TUserDto;
+import com.tweetster.dto.TweetDto;
 import com.tweetster.entity.TUser;
 import com.tweetster.exception.ReferencedEntityNotFoundException;
 import com.tweetster.mapper.TUserMapper;
@@ -55,5 +56,30 @@ public class TUserService {
 		mustExist(id);
 		repo.delete(id);
 	}
-
+	
+	public List<TweetDto> getTweets(Integer id) {
+		mustExist(id);
+		TUserDto usr = mapper.toDto(repo.findOne(id));
+		return usr.getTweets();
+	}
+	
+	public void putTweet(Integer id, TweetDto twt) {
+		mustExist(id);
+		TUserDto usr = mapper.toDto(repo.findOne(id));
+		List<TweetDto> twts = usr.getTweets();
+		twts.add(twt);
+		usr.setTweets(twts);
+		repo.save(mapper.toEntity(usr));
+	}
+	
+	public TUserDto getByName(String uname) {
+		List<TUserDto> matches = getAll().stream()
+				.filter(u -> u.getUsername().equals(uname))
+				.collect(Collectors.toList());
+		
+		if(matches.size() == 0)
+			throw new ReferencedEntityNotFoundException(TUser.class, uname);
+		
+		return matches.get(0);
+	}
 }

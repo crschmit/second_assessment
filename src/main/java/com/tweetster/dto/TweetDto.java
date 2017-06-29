@@ -8,6 +8,7 @@ public class TweetDto {
 	private Timestamp posted;
 	private String content;
 	private boolean deleted;
+	private TUserDto author;
 	
 	public Integer getId() {
 		return id;
@@ -32,6 +33,12 @@ public class TweetDto {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+	public TUserDto getAuthor() {
+		return author;
+	}
+	public void setAuthor(TUserDto author) {
+		this.author = author;
 	}
 	@Override
 	public int hashCode() {
