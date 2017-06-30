@@ -145,7 +145,11 @@ public class TweetsterController {
 	// GET tags/{label}
 	
 	// GET tweets
-	
+	@GetMapping("/tweets")
+	@ApiOperation(value = "", nickname = "getTweets")
+	public List<TweetDto> getTweets() {
+		return tweetService.getVisible();
+	}
 	// POST tweets
 	
 	// GET tweets/{id}
@@ -173,16 +177,16 @@ public class TweetsterController {
 	//
 	
 	
-	@GetMapping("/tweets")
-	@ApiOperation(value = "", nickname = "getAllTweets")
-	public List<TweetDto> getAllTweets() {
-		return tweetService.getAll();
-	}
+//	@GetMapping("/tweets")
+//	@ApiOperation(value = "", nickname = "getAllTweets")
+//	public List<TweetDto> getAllTweets() {
+//		return tweetService.getAll();
+//	}
 
-	@GetMapping("/tweets/{tid}")
-	@ApiOperation(value = "", nickname = "getTweetById")
-	public TweetDto getTweet(@PathVariable Integer tid) {
-		return tweetService.get(tid);
-	}
-	
+//	@GetMapping("/tweets/{tid}")
+//	@ApiOperation(value = "", nickname = "getTweetById")
+//	public TweetDto getTweet(@PathVariable Integer tid) {
+//		return tweetService.get(tid);
+//	}
+//	
 }

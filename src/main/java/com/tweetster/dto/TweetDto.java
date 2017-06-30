@@ -9,8 +9,8 @@ public class TweetDto {
 	private String content;
 	private boolean deleted;
 	private TUserDto author;
-	private TweetDto repostOf;
-	private TweetDto replyTo;
+//	private TweetDto repostOf;
+//	private TweetDto replyTo;
 	
 	public Integer getId() {
 		return id;
@@ -42,18 +42,18 @@ public class TweetDto {
 	public void setAuthor(TUserDto author) {
 		this.author = author;
 	}
-	public TweetDto getRepostOf() {
-		return repostOf;
-	}
-	public void setRepostOf(TweetDto repostOf) {
-		this.repostOf = repostOf;
-	}
-	public TweetDto getReplyTo() {
-		return replyTo;
-	}
-	public void setReplyTo(TweetDto replyTo) {
-		this.replyTo = replyTo;
-	}
+//	public TweetDto getRepostOf() {
+//		return repostOf;
+//	}
+//	public void setRepostOf(TweetDto repostOf) {
+//		this.repostOf = repostOf;
+//	}
+//	public TweetDto getReplyTo() {
+//		return replyTo;
+//	}
+//	public void setReplyTo(TweetDto replyTo) {
+//		this.replyTo = replyTo;
+//	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

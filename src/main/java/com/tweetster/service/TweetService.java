@@ -69,8 +69,8 @@ public class TweetService {
 	public Integer tweet(TUserDto usr, String content, TweetDto twt) {
 		twt.setAuthor(usr);
 		twt.setContent(content);
-		twt.setRepostOf(null);
-		twt.setReplyTo(null);
+		//twt.setRepostOf(null);
+		//twt.setReplyTo(null);
 		return post(twt);
 	}
 	
@@ -78,8 +78,8 @@ public class TweetService {
 		Tweet tgt = repo.findOne(twt.getId());
 		twt.setAuthor(usr);
 		twt.setContent(null);
-		twt.setRepostOf(mapper.toDto(tgt));
-		twt.setReplyTo(null);
+		//twt.setRepostOf(mapper.toDto(tgt));
+		//twt.setReplyTo(null);
 		return post(twt);
 	}
 	
@@ -87,8 +87,8 @@ public class TweetService {
 		Tweet tgt = repo.findOne(twt.getId());
 		twt.setAuthor(usr);
 		twt.setContent(content);
-		twt.setRepostOf(null);
-		twt.setReplyTo(mapper.toDto(tgt));
+		//twt.setRepostOf(null);
+		//twt.setReplyTo(mapper.toDto(tgt));
 		return post(twt);
 	}
 

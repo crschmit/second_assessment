@@ -1,5 +1,6 @@
 package com.tweetster.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import com.tweetster.dto.TUserDto;
 import com.tweetster.dto.TweetDto;
 import com.tweetster.embeddable.UserCredential;
 import com.tweetster.entity.TUser;
+import com.tweetster.entity.Tweet;
 import com.tweetster.exception.ReferencedEntityNotFoundException;
 import com.tweetster.mapper.TUserMapper;
 import com.tweetster.repository.TUserRepository;
@@ -122,7 +124,11 @@ public class TUserService {
 	public Integer addUser(TUserDto tuserDto) {
 		tuserDto.setId(null);
 		tuserDto.setActive(true);
-		return repo.save(mapper.toEntity(tuserDto)).getId();
+		TUser usr = mapper.toEntity(tuserDto);
+		usr.setTweets(new ArrayList<Tweet>());
+		usr.setFollows(new ArrayList<TUser>());
+		usr.setFollowedBy(new ArrayList<TUser>());
+		return repo.save(usr).getId();
 	}
 
 	public void updateUser(Integer id, TUserDto tuserDto) {

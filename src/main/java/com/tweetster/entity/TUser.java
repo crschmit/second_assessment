@@ -25,13 +25,13 @@ public class TUser implements BaseEntity<Integer>{
 	private boolean active;
 	
 	@OneToMany(mappedBy = "author")
-	private List<Tweet> tweets = new ArrayList<Tweet>();
+	private List<Tweet> tweets;
 
 	@ManyToMany
-	private List<TUser> follows = new ArrayList<TUser>();
+	private List<TUser> follows;
 	
 	@ManyToMany
-	private List<TUser> followedBy = new ArrayList<TUser>();
+	private List<TUser> followedBy;
 
 	@Embedded
 	private UserCredential credential;
