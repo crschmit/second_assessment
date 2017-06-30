@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tweetster.dto.TUserDto;
 import com.tweetster.dto.TweetDto;
+import com.tweetster.embeddable.UserCredential;
 import com.tweetster.service.TUserService;
 import com.tweetster.service.TweetService;
 
@@ -33,6 +35,11 @@ public class TweetsterController {
 	//GET validate/tag/exists/{label}
 	
 	// GET validate/username/exists/@{username}
+	@GetMapping("/validate/username/exists/@{name}")
+	@ApiOperation(value = "", nickname = "userExists")
+	public boolean userExists(@PathVariable String name) {
+		return tuserService.has(name);
+	}
 	
 	// GET validate/username/available/@{username}
 	
@@ -47,6 +54,8 @@ public class TweetsterController {
 	@PostMapping("/users")
 	@ApiOperation(value = "", nickname = "addUser")
 	public Integer addUser(@RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		UserCredential crd = usr.getCredential();
+		usr.setUsername(crd.getUser());
 		Integer id = tuserService.addUser(usr);
 		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
 		return id;
