@@ -3,13 +3,14 @@ package com.tweetster.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
 import com.tweetster.dto.datatype.BaseEntity;
+import com.tweetster.embeddable.UserCredential;
 
 @Entity
 public class TUser implements BaseEntity<Integer>{
@@ -30,6 +31,9 @@ public class TUser implements BaseEntity<Integer>{
 	
 	@ManyToMany
 	private List<TUser> followedBy = new ArrayList<TUser>();
+
+	@Embedded
+	private UserCredential credential;
 	
 	public Integer getId() {
 		return id;
@@ -77,6 +81,14 @@ public class TUser implements BaseEntity<Integer>{
 
 	public void setFollowedBy(List<TUser> followedBy) {
 		this.followedBy = followedBy;
+	}
+
+	public UserCredential getCredential() {
+		return credential;
+	}
+
+	public void setCredential(UserCredential credential) {
+		this.credential = credential;
 	}
 
 	@Override

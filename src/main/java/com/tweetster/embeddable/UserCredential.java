@@ -5,20 +5,20 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserCredential {
 	
-	private String username;
-	private String password;
+	private String uname;
+	private String pword;
 	
 	public String getUsername() {
-		return username;
+		return uname;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String uname) {
+		this.uname = uname;
 	}
 	public String getPassword() {
-		return password;
+		return pword;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String pword) {
+		this.pword = pword;
 	}
 	
 }
