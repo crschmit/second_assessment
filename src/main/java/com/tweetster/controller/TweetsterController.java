@@ -153,9 +153,19 @@ public class TweetsterController {
 	// POST tweets
 	
 	// GET tweets/{id}
-	
+	@GetMapping("/tweets/{id}")
+	@ApiOperation(value = "", nickname = "getTweetById")
+	public TweetDto getTweetById(@PathVariable Integer id) {
+		return tweetService.get(id);
+	}
 	// DELETE tweets/{id}
-	
+	@DeleteMapping("/tweets/{id}")
+	@ApiOperation(value = "", nickname = "deleteTweetById")
+	public TweetDto deleteTweetById(@PathVariable Integer id) {
+		TweetDto t = tweetService.get(id);
+		tweetService.markAsDeleted(id);
+		return t;
+	}
 	// POST tweets/{id}/like
 	
 	// POST tweets/{id}/reply
