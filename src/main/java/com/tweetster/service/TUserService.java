@@ -198,6 +198,42 @@ public class TUserService {
 		tgt.setFollowedBy(followedBy);
 		repo.save(tgt);
 	}
+	public void follow(UserCredential credential, String tname) {
+		mustExist(credential);
+		mustExist(tname);
+		TUser usr = repo.findByCredential(credential).get(0);
+		TUser tgt = repo.findByUsername(tname).get(0);
+		// add target to user's follows list
+		List<TUser> follows = usr.getFollows();
+		// throw an error if user already follows target
+		if(follows.contains(tgt)) throw new ReferencedEntityNotFoundException(TUser.class, tname);
+		follows.add(tgt);
+		usr.setFollows(follows);
+		repo.save(usr);
+		// add user to target's followedBy list
+		List<TUser> followedBy = tgt.getFollowedBy();
+		followedBy.add(usr);
+		tgt.setFollowedBy(followedBy);
+		repo.save(tgt);
+	}
+	public void unfollow(UserCredential credential, String tname) {
+		mustExist(credential);
+		mustExist(tname);
+		TUser usr = repo.findByCredential(credential).get(0);
+		TUser tgt = repo.findByUsername(tname).get(0);
+		// add target to user's follows list
+		List<TUser> follows = usr.getFollows();
+		// throw an error if user already follows target
+		if(!follows.contains(tgt)) throw new ReferencedEntityNotFoundException(TUser.class, tname);
+		follows.remove(tgt);
+		usr.setFollows(follows);
+		repo.save(usr);
+		// add user to target's followedBy list
+		List<TUser> followedBy = tgt.getFollowedBy();
+		followedBy.remove(usr);
+		tgt.setFollowedBy(followedBy);
+		repo.save(tgt);
+	}
 	
 	public List<TUserDto> matchName(String name) {
 		return repo.findByUsername(name).stream()

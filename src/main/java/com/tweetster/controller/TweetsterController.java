@@ -104,13 +104,18 @@ public class TweetsterController {
 	}
 	
 	// POST users/@{username}/follow
-	@PostMapping("/users/@{usr}/@{tgt}/follow")
-	@ApiOperation(value = "", nickname = "followByName")
-	public void follow(@PathVariable String usr, @PathVariable String tgt, HttpServletResponse httpResponse) {
-		tuserService.follow(usr, tgt);
+	@PostMapping("/users/@{name}/follow")
+	@ApiOperation(value = "", nickname = "follow")
+	public void follow(@PathVariable String name, @RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		tuserService.follow(usr.getCredential(), name);
 	}
 	
 	// POST users/@{username}/unfollow
+	@PostMapping("/users/@{name}/unfollow")
+	@ApiOperation(value = "", nickname = "unfollow")
+	public void unfollow(@PathVariable String name, @RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		tuserService.unfollow(usr.getCredential(), name);
+	}
 	
 	// GET users/@{username}/feed
 	
