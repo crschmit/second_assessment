@@ -129,9 +129,17 @@ public class TweetsterController {
 	// GET users/@{username}/mentions
 	
 	// GET users/@{username}/followers
-	
+	@GetMapping("/users/{name}/followers")
+	@ApiOperation(value = "", nickname = "getFollowers")
+	public List<TUserDto> getFollowers(@PathVariable String name) {
+		return tuserService.getFollowedBy(name);
+	}
 	// GET users/@{username}/following
-	
+	@GetMapping("/users/{name}/following")
+	@ApiOperation(value = "", nickname = "getFollowing")
+	public List<TUserDto> getFollowing(@PathVariable String name) {
+		return tuserService.getFollows(name);
+	}
 	// GET tags
 	
 	// GET tags/{label}
