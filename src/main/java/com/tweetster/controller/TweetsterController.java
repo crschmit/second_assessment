@@ -85,7 +85,7 @@ public class TweetsterController {
 	@PatchMapping("/users/@{name}")
 	@ApiOperation(value = "", nickname = "updateUser")
 	public TUserDto updateUser(@PathVariable String name, @RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
-		// if(name != usr.getCredential().getUser()) throw new ReferencedEntityNotFoundException(TUser.class, name);
+		if(!name.equals(usr.getCredential().getUser())) throw new ReferencedEntityNotFoundException(TUser.class, name);
 		TUserDto dto = tuserService.get(usr.getCredential());
 		dto.setProfile(usr.getProfile());
 		tuserService.updateUser(usr.getCredential(), dto);
@@ -97,6 +97,7 @@ public class TweetsterController {
 	@DeleteMapping("/users/@{name}")
 	@ApiOperation(value = "", nickname = "deleteUser")
 	public TUserDto deleteUser(@PathVariable String name, @RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		if(!name.equals(usr.getCredential().getUser())) throw new ReferencedEntityNotFoundException(TUser.class, name);
 		TUserDto dto = tuserService.get(usr.getCredential());
 		tuserService.delete(usr.getCredential());
 		return dto;
