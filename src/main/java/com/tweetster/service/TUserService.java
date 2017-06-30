@@ -58,6 +58,10 @@ public class TUserService {
 		mustExist(name);
 		return mapper.toDto(repo.findByUsername(name).get(0));
 	}
+	public TUserDto get(UserCredential credential) {
+		mustExist(credential);
+		return mapper.toDto(repo.findByCredential(credential).get(0));
+	}
 	public List<TUserDto> getAll() {
 		return repo.findAll().stream()
 				.map(mapper::toDto).collect(Collectors.toList());
@@ -129,6 +133,12 @@ public class TUserService {
 	public void updateUser(String name, TUserDto tuserDto) {
 		mustExist(name);
 		Integer id = get(name).getId();
+		tuserDto.setId(id);
+		repo.save(mapper.toEntity(tuserDto));
+	}
+	public void updateUser(UserCredential credential, TUserDto tuserDto) {
+		mustExist(credential);
+		Integer id = get(credential).getId();
 		tuserDto.setId(id);
 		repo.save(mapper.toEntity(tuserDto));
 	}

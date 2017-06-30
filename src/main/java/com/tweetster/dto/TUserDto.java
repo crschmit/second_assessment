@@ -3,6 +3,7 @@ package com.tweetster.dto;
 import java.util.List;
 
 import com.tweetster.embeddable.UserCredential;
+import com.tweetster.embeddable.UserProfile;
 
 public class TUserDto {
 
@@ -15,6 +16,8 @@ public class TUserDto {
 	private boolean active;
 	
 	private UserCredential credential;
+	
+	private UserProfile profile;
 
 	public Integer getId() {
 		return id;
@@ -54,6 +57,14 @@ public class TUserDto {
 
 	public void setCredential(UserCredential credential) {
 		this.credential = credential;
+	}
+
+	public UserProfile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(UserProfile profile) {
+		this.profile = profile;
 	}
 
 	@Override

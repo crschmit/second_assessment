@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import com.tweetster.dto.datatype.BaseEntity;
 import com.tweetster.embeddable.UserCredential;
+import com.tweetster.embeddable.UserProfile;
 
 @Entity
 public class TUser implements BaseEntity<Integer>{
@@ -34,6 +35,9 @@ public class TUser implements BaseEntity<Integer>{
 
 	@Embedded
 	private UserCredential credential;
+	
+	@Embedded
+	private UserProfile profile;
 	
 	public Integer getId() {
 		return id;
@@ -89,6 +93,14 @@ public class TUser implements BaseEntity<Integer>{
 
 	public void setCredential(UserCredential credential) {
 		this.credential = credential;
+	}
+
+	public UserProfile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(UserProfile profile) {
+		this.profile = profile;
 	}
 
 	@Override

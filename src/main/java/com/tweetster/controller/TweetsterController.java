@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tweetster.dto.TUserDto;
 import com.tweetster.dto.TweetDto;
 import com.tweetster.embeddable.UserCredential;
+import com.tweetster.entity.TUser;
+import com.tweetster.exception.ReferencedEntityNotFoundException;
 import com.tweetster.service.TUserService;
 import com.tweetster.service.TweetService;
 
@@ -78,11 +81,15 @@ public class TweetsterController {
 	}
 	
 	// PATCH users/@{username}
-//	@PatchMapping("/users/@{name}")
-//	@ApiOperation(value = "", nickname = "updateUserByName")
-//	public TUserDto updateUser(@PathVariable String name, , HttpServletResponse httpResponse) {
-//		
-//	}
+	@PatchMapping("/users/@{name}")
+	@ApiOperation(value = "", nickname = "updateUser")
+	public TUserDto updateUser(@PathVariable String name, @RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		// if(name != usr.getCredential().getUser()) throw new ReferencedEntityNotFoundException(TUser.class, name);
+		TUserDto dto = tuserService.get(usr.getCredential());
+		dto.setProfile(usr.getProfile());
+		tuserService.updateUser(usr.getCredential(), dto);
+		return dto;
+	}
 	
 	
 	// DELETE users/@{username}
