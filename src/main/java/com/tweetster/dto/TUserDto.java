@@ -2,6 +2,8 @@ package com.tweetster.dto;
 
 import java.util.List;
 
+import com.tweetster.embeddable.UserCredential;
+
 public class TUserDto {
 
 	private Integer id;
@@ -11,6 +13,8 @@ public class TUserDto {
 	private List<TweetDto> tweets;
 	
 	private boolean active;
+	
+	private UserCredential credential;
 
 	public Integer getId() {
 		return id;
@@ -42,6 +46,14 @@ public class TUserDto {
 
 	public void setActive(boolean deleted) {
 		this.active = deleted;
+	}
+
+	public UserCredential getCredential() {
+		return credential;
+	}
+
+	public void setCredential(UserCredential credential) {
+		this.credential = credential;
 	}
 
 	@Override
