@@ -156,6 +156,12 @@ public class TUserService {
 		usr.setActive(false);
 		updateUser(name, usr);
 	}
+	public void delete(UserCredential credential) {
+		mustExist(credential);
+		TUserDto usr = get(credential);
+		usr.setActive(false);
+		updateUser(credential, usr);
+	}
 		
 	// Tweet
 	public void tweet(Integer id, TweetDto twt) {

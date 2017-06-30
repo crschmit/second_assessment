@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,11 +94,13 @@ public class TweetsterController {
 	
 	
 	// DELETE users/@{username}
-//	@DeleteMapping("/users/@{name}")
-//	@ApiOperation(value = "", nickname = "deleteUserByName")
-//	public void deleteUser() {
-//		
-//	}
+	@DeleteMapping("/users/@{name}")
+	@ApiOperation(value = "", nickname = "deleteUser")
+	public TUserDto deleteUser(@PathVariable String name, @RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		TUserDto dto = tuserService.get(usr.getCredential());
+		tuserService.delete(usr.getCredential());
+		return dto;
+	}
 	
 	// POST users/@{username}/follow
 	@PostMapping("/users/@{usr}/@{tgt}/follow")
