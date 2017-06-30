@@ -42,6 +42,15 @@ public class TweetsterController {
 	}
 	
 	// GET validate/username/available/@{username}
+	@GetMapping("/validate/username/available/@{name}")
+	@ApiOperation(value = "", nickname = "userAvailable")
+	public boolean userAvailable(@PathVariable String name) {
+		if(tuserService.has(name)) {
+			return tuserService.get(name).isActive();
+		} else {
+			return false;
+		}
+	}
 	
 	// GET users
 	@GetMapping("/users")
@@ -63,7 +72,7 @@ public class TweetsterController {
 	
 	// GET users/@{username}
 	@GetMapping("/users/{name}")
-	@ApiOperation(value = "", nickname = "getUserByName")
+	@ApiOperation(value = "", nickname = "getUser")
 	public TUserDto getUser(@PathVariable String name) {
 		return tuserService.get(name);
 	}
