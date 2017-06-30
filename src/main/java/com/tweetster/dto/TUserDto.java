@@ -9,6 +9,8 @@ public class TUserDto {
 	private String username;
 	
 	private List<TweetDto> tweets;
+	
+	private boolean active;
 
 	public Integer getId() {
 		return id;
@@ -32,6 +34,14 @@ public class TUserDto {
 
 	public void setTweets(List<TweetDto> tweets) {
 		this.tweets = tweets;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean deleted) {
+		this.active = deleted;
 	}
 
 	@Override

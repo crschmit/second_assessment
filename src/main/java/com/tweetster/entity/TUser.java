@@ -20,6 +20,8 @@ public class TUser implements BaseEntity<Integer>{
 	
 	private String username;
 	
+	private boolean active;
+	
 	@OneToMany(mappedBy = "author")
 	private List<Tweet> tweets = new ArrayList<Tweet>();
 
@@ -43,6 +45,14 @@ public class TUser implements BaseEntity<Integer>{
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public List<Tweet> getTweets() {

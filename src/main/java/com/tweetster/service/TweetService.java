@@ -25,11 +25,17 @@ public class TweetService {
 		this.mapper = mapper;
 	}
 	
+	// Validate
 	private void mustExist(Integer id) {
 		if(!has(id))
 			throw new ReferencedEntityNotFoundException(Tweet.class, id);
 	}
 	
+	public boolean has(Integer id) {
+		return repo.exists(id);
+	}
+
+	// Get
 	public List<TweetDto> getAll() {
 		return repo.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
 	}
@@ -40,16 +46,13 @@ public class TweetService {
 				.filter(t -> !t.isDeleted())
 				.collect(Collectors.toList());
 	}
-	
-	public boolean has(Integer id) {
-		return repo.exists(id);
-	}
-	
+		
 	public TweetDto get(Integer id) {
 		mustExist(id);
 		return mapper.toDto(repo.findOne(id));
 	}
 	
+	// Create
 	public Integer post(TweetDto tweetDto) {
 		tweetDto.setId(null);
 		tweetDto.setDeleted(false);
@@ -61,18 +64,6 @@ public class TweetService {
 		mustExist(id);
 		tweetDto.setId(id);
 		repo.save(mapper.toEntity(tweetDto));
-	}
-	
-	public void markAsDeleted(Integer id) {
-		mustExist(id);
-		TweetDto tdto = get(id);
-		tdto.setDeleted(true);
-		repo.save(mapper.toEntity(tdto));
-	}
-	
-	public void delete(Integer id) {
-		mustExist(id);
-		repo.delete(id);
 	}
 	
 	public Integer tweet(TUserDto usr, String content, TweetDto twt) {
@@ -100,4 +91,19 @@ public class TweetService {
 		twt.setReplyTo(mapper.toDto(tgt));
 		return post(twt);
 	}
+
+	// Delete
+	public void markAsDeleted(Integer id) {
+		mustExist(id);
+		TweetDto tdto = get(id);
+		tdto.setDeleted(true);
+		repo.save(mapper.toEntity(tdto));
+	}
+	
+	public void delete(Integer id) {
+		mustExist(id);
+		repo.delete(id);
+	}
+	
+
 }

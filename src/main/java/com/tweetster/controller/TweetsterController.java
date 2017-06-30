@@ -40,14 +40,14 @@ public class TweetsterController {
 	@GetMapping("/users")
 	@ApiOperation(value = "", nickname = "getAllUsers")
 	public List<TUserDto> getAllUsers() {
-		return tuserService.getAll();
+		return tuserService.getActive();
 	}	
 	
 	// POST users
 	@PostMapping("/users")
-	@ApiOperation(value = "", nickname = "postUser")
-	public Integer postUser(@RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
-		Integer id = tuserService.post(usr);
+	@ApiOperation(value = "", nickname = "addUser")
+	public Integer addUser(@RequestBody @Validated TUserDto usr, HttpServletResponse httpResponse) {
+		Integer id = tuserService.addUser(usr);
 		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
 		return id;
 	}
@@ -56,13 +56,7 @@ public class TweetsterController {
 	@GetMapping("/users/{name}")
 	@ApiOperation(value = "", nickname = "getUserByName")
 	public TUserDto getUser(@PathVariable String name) {
-		return tuserService.getByName(name);
-	}
-	
-	@GetMapping("match/{name}")
-	@ApiOperation(value = "", nickname = "matchByName")
-	public List<TUserDto> matchByName(@PathVariable String name) {
-		return tuserService.matchName(name);
+		return tuserService.get(name);
 	}
 	
 	// PATCH users/@{username}
