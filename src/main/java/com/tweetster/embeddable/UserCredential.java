@@ -8,10 +8,10 @@ public class UserCredential {
 	private String uname;
 	private String pword;
 	
-	public String getUsername() {
+	public String getUser() {
 		return uname;
 	}
-	public void setUsername(String uname) {
+	public void setUser(String uname) {
 		this.uname = uname;
 	}
 	public String getPassword() {

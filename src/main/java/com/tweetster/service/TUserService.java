@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tweetster.dto.TUserDto;
 import com.tweetster.dto.TweetDto;
+import com.tweetster.embeddable.UserCredential;
 import com.tweetster.entity.TUser;
 import com.tweetster.exception.ReferencedEntityNotFoundException;
 import com.tweetster.mapper.TUserMapper;
@@ -28,10 +29,13 @@ public class TUserService {
 		if(!has(id))
 			throw new ReferencedEntityNotFoundException(TUser.class, id);
 	}
-
 	private void mustExist(String name) {
 		if(!has(name))
 			throw new ReferencedEntityNotFoundException(TUser.class, name);
+	}
+	private void mustExist(UserCredential credential) {
+		if(!has(credential))
+			throw new ReferencedEntityNotFoundException(TUser.class, credential.getUser());
 	}
 	
 	public boolean has(Integer id) {
@@ -40,6 +44,9 @@ public class TUserService {
 
 	public boolean has(String name) {
 		return repo.findByUsername(name).size() > 0;
+	}
+	public boolean has(UserCredential credential) {
+		return repo.findByCredential(credential).size() == 1;
 	}
 	
 	// Get
