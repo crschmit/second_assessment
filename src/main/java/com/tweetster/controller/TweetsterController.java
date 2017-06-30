@@ -120,6 +120,11 @@ public class TweetsterController {
 	// GET users/@{username}/feed
 	
 	// GET users/@{username}/tweets
+	@GetMapping("/users/{name}/tweets")
+	@ApiOperation(value = "", nickname = "getUserTweets")
+	public List<TweetDto> getUserTweets(@PathVariable String name) {
+		return tuserService.getTweets(name);
+	}
 	
 	// GET users/@{username}/mentions
 	
